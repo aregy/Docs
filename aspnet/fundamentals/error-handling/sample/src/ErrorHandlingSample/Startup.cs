@@ -30,6 +30,7 @@ namespace ErrorHandlingSample
             app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
             app.MapWhen(context => context.Request.Path == "/", HomePage);
+            app.MapWhen(context => context.Request.Path == "/missingpage", builder => { });
 
             // "/errors/400"
             app.Map("/errors", error =>
@@ -51,6 +52,8 @@ namespace ErrorHandlingSample
                     await context.Response.WriteAsync(builder.ToString());
                 });
             });
+
+            HomePage(app);
         }
 
         public static void HomePage(IApplicationBuilder app)
@@ -65,7 +68,7 @@ namespace ErrorHandlingSample
                 builder.AppendLine("<html><body>Hello World!");
                 builder.AppendLine("<ul>");
                 builder.AppendLine("<li><a href=\"/?throw=true\">Throw Exception</a></li>");
-                builder.AppendLine("<li><a href=\"/ardalis\">Missing Page</a></li>");
+                builder.AppendLine("<li><a href=\"/missingpage\">Missing Page</a></li>");
                 builder.AppendLine("</ul>");
                 builder.AppendLine("</body></html>");
 
