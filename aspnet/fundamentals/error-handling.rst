@@ -127,7 +127,7 @@ Following the above recommendations will help ensure your app remains responsive
 Server Exception Handling
 -------------------------
 
-In addition to the exception handling logic in your app, the server hosting your app will perform some exception handling. In the case of IIS, this is described `here <https://technet.microsoft.com/en-us/library/cc731570(v=ws.10).aspx>`. For Kestrel, its built-in exception handling behavior may be found `here <https://github.com/aspnet/KestrelHttpServer/blob/dev/src/Microsoft.AspNetCore.Server.Kestrel/Http/Frame.cs#L565>`. Requests that are not handled by your app will be handled by the server, and any exception that occurs will be handled by the server's exception handling. Any custom error pages or exception handling middleware or filters you have configured for your app will not affect this behavior.
+In addition to the exception handling logic in your app, the server hosting your app will perform some exception handling. If the server catches an exception before the headers have been sent it will send a 500 Internal Server Error response with no body. If it catches an exception after the headers have been sent it must close the connection. Requests that are not handled by your app will be handled by the server, and any exception that occurs will be handled by the server's exception handling. Any custom error pages or exception handling middleware or filters you have configured for your app will not affect this behavior.
 
 .. _startup-error-handling:
 
