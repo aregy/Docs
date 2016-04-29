@@ -132,17 +132,6 @@ Startup Exception Handling
 
 One of the trickiest places to handle exceptions in your app is during its startup. Depending on how far into startup the app makes it before the exception occurs, exception handling middleware, filters, etc. may or may not be set up to deal with the problem. Exceptions that occur in your app's startup can also impact server behavior. For example, to enable SSL in Kestrel, one must configure the server with ``app.UseKestrelHttps()``. If an exception happens before this line in ``Startup``, then by default Kestrel will not handle the exception and the process will crash.
 
-If you wish to change this behavior (you would prefer the server start, and display the exception in response to requests), you can do so using ``CaptureStartupErrors``.
-
-.. code-block:: c#
-  :emphasize-lines: 2
-
-  var builder = new WebHostBuilder()
-    .CaptureStartupErrors(true)
-    .Configure(app => { ... });
-
-.. note:: This behavior was updated between RC1 and RC2.
-
 HTTP 500 Errors on Azure
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
