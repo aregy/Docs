@@ -135,7 +135,7 @@ One of the trickiest places to handle exceptions in your app is during its start
 If you wish to change this behavior (you would prefer the server start, and display the exception in response to requests), you can do so using ``CaptureStartupErrors``.
 
 .. code-block:: c#
-	:emphasize-lines: 2
+  :emphasize-lines: 2
 
   var builder = new WebHostBuilder()
     .CaptureStartupErrors(true)
