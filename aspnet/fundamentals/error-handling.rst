@@ -36,7 +36,11 @@ If a request includes a non-empty querystring parameter for the variable ``throw
 
 .. image:: error-handling/_static/developer-exception-page.png
 
-When not in development, it's a good idea to configure friendly pages for common HTTP status codes. You can use :ref:`status code pages <status-code-pages>` for this purpose.
+When not in development, it's a good idea to configure an exception handler path using the ``UseExceptionHandler`` middleware:
+
+.. code-block:: c#
+
+  app.UseExceptionHandler("/Error");
 
 Using the Developer Exception Page
 ----------------------------------
