@@ -117,7 +117,7 @@ Limitations of Exception Handling During Client-Server Interaction
 
 Web apps have certain limitations to their exception handling capabilities because of the nature of disconnected HTTP requests and responses. Keep these in mind as you design your app's exception handling behavior.
 
-#. Once the headers for a response have been sent, you cannot change the response's status code.
+#. Once the headers for a response have been sent, you cannot change the response's status code, nor can any exception pages or handlers run. The response must be completed or the connection aborted.
 #. If the client disconnects mid-response, you cannot send them the rest of the content of that response.
 #. There is always the possibility of an exception occuring one layer below your exception handling layer.
 #. Don't forget, exception handling pages can have exceptions, too. It's often a good idea for production error pages to consist of purely static content.
