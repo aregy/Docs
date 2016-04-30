@@ -134,26 +134,7 @@ In addition to the exception handling logic in your app, the server hosting your
 Startup Exception Handling
 --------------------------
 
-One of the trickiest places to handle exceptions in your app is during its startup. Depending on how far into startup the app makes it before the exception occurs, exception handling middleware, filters, etc. may or may not be set up to deal with the problem. Exceptions that occur in your app's startup can also impact server behavior. For example, to enable SSL in Kestrel, one must configure the server with ``app.UseKestrelHttps()``. If an exception happens before this line in ``Startup``, then by default Kestrel will not handle the exception and the process will crash.
-
-HTTP 500 Errors on Azure
-^^^^^^^^^^^^^^^^^^^^^^^^
-
-If your app throws an exception during startup, it is not handled by ``DeveloperExceptionPage`` (if configured). The app, if deployed to Azure (or another production IIS server), will return an HTTP 500 error with no message details to any request.
-
-The publish wizard in Visual Studio 2015 creates a *web.config* file if you don't have one. If you have a *web.config* file in the *wwwroot* folder, the deploy process inserts the markup into the *web.config* file it generates. 
-
-To get detailed error messages on Azure, add the following *web.config* file to the *wwwroot* folder.
-
-.. warning:: Security warning: Enabling detailed error message can leak critical information from your app. You should never enable detailed error messages on a production app.
-
-.. code-block:: html
-
-  <configuration>
-    <system.web>
-      <customErrors mode="Off"/>
-    </system.web>
-  </configuration>
+One of the trickiest places to handle exceptions in your app is during its startup. Only the hosting layer can handle exceptions that take place during app startup. Exceptions that occur in your app's startup can also impact server behavior. For example, to enable SSL in Kestrel, one must configure the server with ``app.UseKestrelHttps()``. If an exception happens before this line in ``Startup``, then by default hosting will catch the exception, start the server, and display an error page on the non-SSL port. If an exception happens after that line executes, then the error page will be served over HTTPS instead.
 
 ASP.NET MVC Error Handling
 --------------------------
