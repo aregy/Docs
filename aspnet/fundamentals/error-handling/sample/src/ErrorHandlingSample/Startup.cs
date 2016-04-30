@@ -29,7 +29,6 @@ namespace ErrorHandlingSample
             }
             app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
-            app.MapWhen(context => context.Request.Path == "/", HomePage);
             app.MapWhen(context => context.Request.Path == "/missingpage", builder => { });
 
             // "/errors/400"
